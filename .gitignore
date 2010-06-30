@@ -1,0 +1,16 @@
+*~
+*.swp
+*.log
+*.cache
+/log/*
+/cache/*
+/web/uploads/*
+/web/css/scaffold/cache/*
+/web/images/*.psd
+/.buildpath
+/.project
+/.settings/
+/plugins/.registry/*
+/jobs/run/*
+/scripts/*.sql
+

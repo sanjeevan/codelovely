@@ -1,0 +1,229 @@
+Article:
+  actAs:
+    Timestampable: ~
+    Sluggable:
+      unique: true
+      fields: [title]
+      canUpdate: true
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    user_id: integer(4)
+    thing_id: integer(4)
+    username: string(255)
+    title: string(255)
+    url: string(255)
+    summary: string
+    fulldescription: string
+    code: string
+    code_language: string(20)
+    question: string
+    total_comments: integer(4)
+    has_thumbnails: { type: boolean, default: 0 }
+    flavour: { type: enum, values: [link, code, question, snapshot], default: link}
+    published: { type: boolean, default: 0 }
+  relations:
+    User:
+      local: user_id
+      foreign: id
+      foreignType: many
+    Thing:
+      local: thing_id
+      foreign: id
+      type: one
+      foreignType: one
+    
+User:
+  actAs: [Timestampable]
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    username: string(30)
+    email: string(255)
+    firstname: string(50)
+    lastname: string(50)
+    password: string(255)
+    salt: string(255)
+    is_admin: boolean
+    last_login: timestamp
+     
+Vote:
+  actAs: [Timestampable]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    thing_id: integer(4)
+    user_id: integer(4)
+    type: string(4)
+  relations:
+    Thing:
+      local: thing_id
+      foreign: id
+      type: one
+      foreignType: many
+    User:
+      local: user_id
+      foreign: id
+      type: one
+      foreignType: many
+      
+Thing:
+  actAs: [Timestampable]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    hot:
+      type: decimal(15)
+      scale: 7
+    ups: integer(4)
+    downs: integer(4)
+    score: integer(4)
+    is_published: boolean
+    
+Comment:
+  actAs: [Timestampable]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    thing_id: integer(4)
+    user_id: integer(4)
+    article_id: integer(4)
+    reply_id: integer(4)
+    reply_depth: integer(4)
+    content: string
+    content_html: string
+  relations:
+    User:
+      local: user_id
+      foreign: id
+      type: one
+      foreignType: many
+    Article:
+      foreignAlias: Comments
+      local: article_id
+      foreign: id
+      type: one
+      foreignType: many
+    Thing:
+      local: thing_id
+      foreign: id
+      type: one
+      foreignType: one
+      
+File:
+  actAs: [Timestampable]
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    filename: string(255)
+    filesize: integer(11)
+    extension: string(25)
+    mimetype: string(255)
+    location: string(255)
+    meta_width: integer(4)
+    meta_height: integer(4)
+    hash: string(32)
+
+FileToArticle:
+  actAs: [Timestampable]
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    file_id: integer(4)
+    article_id: integer(4)
+    is_published: { type: boolean, default: 0 }
+  relations:
+    File:
+      local: file_id
+      foreign: id
+    Article:
+      local: article_id
+      foreign: id
+ 
+UserToAvatar:
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    is_default: boolean
+    user_id: integer(4)
+    file_id: integer(4)
+  relations:
+    User:
+      local: user_id
+      type: one
+      foreign: id
+      foreignType: many
+      foreignAlias: UserToAvatars
+    File:
+      local: file_id
+      type: one
+      foreign: id
+      foreignType: many
+      foreignAlias: UserToAvatars
+
+BlogEntry:
+  actAs:
+    Timestampable: ~
+    Sluggable:
+      unique: true
+      fields: [title]
+      canUpdate: true
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    user_id: integer(4)
+    title: string(255)
+    summary: string
+    summary_html: string
+    body: string
+    body_html: string
+    status: string(15)
+    published_at: timestamp
+  relations:
+    User:
+      local: user_id
+      type: one
+      foreign: id
+      foreignType: many
+      
+Invite:
+  actAs:
+    Timestampable: ~
+  columns:
+    code: string(100)
+    user_id: integer(4)
+    status: { type: enum, values: [unused, sent, used], default: unused }
+    sent_at: timestamp
+    sent_to: string(255)
+    invited_user_id: integer(4)
+  relations:
+    User:
+      local: user_id
+      type: one
+      foreign: id
+      foreignType: many
+    InvitedUser:
+      local: invited_user_id
+      type: one
+      foreign: id
+      foreignType: many
+    
+    

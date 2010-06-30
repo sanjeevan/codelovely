@@ -1,0 +1,16 @@
+delete:
+  is_secure: true
+
+edit:
+  is_secure: true
+  
+newItem:
+  is_secure: true
+
+setThumbnails:
+  is_secure: true
+
+fetchingThumbnails:
+  is_secure: true
+  
+  

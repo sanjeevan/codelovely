@@ -1,0 +1,8 @@
+edit:
+  is_secure: true
+
+new:
+  is_secure: true
+
+delete:
+  is_secure: true

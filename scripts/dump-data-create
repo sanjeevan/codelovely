@@ -1,0 +1,2 @@
+#!/bin/sh
+mysqldump frostty --complete-insert > frostty-`date +%d-%m-%y_%H-%M`.sql

@@ -1,0 +1,5 @@
+showSuccess:
+  javascripts: [jquery.watermark.min.js]
+
+fetchingThumbsSuccess:
+  javascripts: [jquery.periodicalupdater.js]

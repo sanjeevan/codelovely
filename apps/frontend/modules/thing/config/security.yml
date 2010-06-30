@@ -1,0 +1,5 @@
+ajaxUpVote:
+  is_secure: true
+
+ajaxDownVote:
+  is_secure: true

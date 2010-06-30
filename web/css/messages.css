@@ -1,0 +1,59 @@
+/* listings filters */
+
+#message-menu li { float: left; margin: 0 20px 0 0; list-style: none;  }
+#message-menu li a { text-transform: uppercase; text-decoration: none; color: #666;}
+#message-menu li a:hover { color: #666; font-weight: bold; }
+#message-menu li a.active { font-weight: bold; }
+
+/* end of */
+
+form.message {
+  input { width: 40em; padding: 3px; }
+  textarea {
+    width: 40em;
+    height: 20em;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+  }
+}
+
+form.message-reply {
+  margin: 5px;
+  input { width: 40em; padding: 3px; }
+  textarea {
+    width: 40em;
+    height: 20em;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+  }
+}
+
+table#message-list { }
+table#message-list tr {
+  background-color: #ECECEC;
+}
+
+table#message-list tr:hover {
+  background-color: #ccc;
+}
+
+
+table#message-list td {
+  padding: 5px;
+  cursor: pointer;
+}
+
+table#message-list tr.unread { background-color: #fff; }
+
+table#message-list td.chk { width: 2em; }
+table#message-list td.to-from { width: 180px; }
+table#message-list td.title { width: 600px; }
+table#message-list td.ago { width: 130px; color: #444444; }
+
+table.view-message {
+  td { vertical-align: top; padding: 4px; }
+  td.image {  }
+  span.user { font-weight: bold; }
+  span.sent { color: #777; }
+}
+

@@ -1,0 +1,71 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:   /
+  param: { module: article, action: hot }
+
+# listings
+hot:
+  url: /hot
+  param: { module: article, action: hot }
+
+hot_flav:
+  url: /hot/:flavour
+  param: { module: article, action: hot }
+
+latest:
+  url: /latest
+  param: { module: article, action: latest }
+
+latest_flav:
+  url: /latest/:flavour
+  param: { module: article, action: latest }
+
+# add new article
+add:
+  url: /add
+  param: { module: article, action: newItem } 
+  
+# custom urls for different article flavours
+snapshot:
+  url: /snapshot/:slug
+  param: { module: article, action: slug }
+  
+code:
+  url: /code/:slug
+  param: { module: article, action: slug }
+  
+question:
+  url: /question/:slug
+  param: { module: article, action: slug }
+  
+link:
+  url: /link/:slug
+  param: { module: article, action: slug }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+avatar:
+  url:  /profile/avatar
+  param: { module: profile, action: avatar }
+
+show_profile:
+  url:  /profile/:username
+  param: { module: profile, action: index }  
+  
+show_profile_flav:
+  url: /profile/:username/:flavour
+  param: { module: profile, action: index }
+
+show_blog_entry:
+  url: /post/:slug
+  param: { module: blog, action: show }
+
+default:
+  url:   /:module/:action/*

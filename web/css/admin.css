@@ -1,0 +1,11 @@
+a.admin {
+  color: red !important;
+}
+
+ul#main-navigation {
+  border-bottom: 1px solid red !important;
+}
+
+span.welcome span.username {
+  color: red !important;
+}

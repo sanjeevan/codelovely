@@ -1,0 +1,11 @@
+delete:
+  is_secure: true
+
+addReply:
+  is_secure: true
+
+add:
+  is_secure: true
+
+ajaxEditComment:
+  is_secure: true

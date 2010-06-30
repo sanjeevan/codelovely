@@ -1,0 +1,45 @@
+sfMessageInbox:
+  actAs: [Timestampable]
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    user_id: integer(4)
+    from_id: integer(4)
+    to_str: string(255)
+    title: string(255)
+    message: string
+    is_read: boolean
+    last_accessed: timestamp
+  relations:
+    FromUser:
+      class: User
+      local: from_id
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+    User:
+      local: user_id
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+      
+sfMessageOutbox:
+  actAs: [Timestampable]
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    user_id: integer(4)
+    to_str: string(255)
+    title: string(255)
+    message: string
+  relations:
+    User:
+      local: user_id
+      type: one
+      foreignType: many
+      onDelete: CASCADE
+      

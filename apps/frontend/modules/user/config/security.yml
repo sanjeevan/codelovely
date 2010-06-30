@@ -1,0 +1,8 @@
+saveAvatar:
+  is_secure: true
+
+settings:
+  is_secure: true
+
+invites:
+  is_secure: true

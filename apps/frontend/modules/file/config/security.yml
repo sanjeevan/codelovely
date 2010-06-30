@@ -1,0 +1,5 @@
+ajaxDeleteFiles:
+  is_secure: true
+
+deleteFromArticle:
+  is_secure: true
