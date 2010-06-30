@@ -21,7 +21,6 @@ class articleActions extends ApplicationActions
     
     $q = Doctrine_Query::create()->select('a.*, t.*, v.*')
       ->from('article a, a.Thing t')
-      ->leftJoin('t.Vote v with v.user_id = ?', $this->getUser()->getId())
       ->groupBy('a.id')
       ->orderBy('t.hot DESC');
     
@@ -31,7 +30,6 @@ class articleActions extends ApplicationActions
     
     $cache_hash = array(
       'hot',
-      'user-' . $this->getUser()->getId(),
       'flavour-' . $this->flavour,
       'page-'  . $request->getParameter('page', 1),
       'perpage-' . sfConfig::get('app_things_perpage')  
@@ -59,7 +57,6 @@ class articleActions extends ApplicationActions
     
     $q = Doctrine_Query::create()->select('a.*, t.*, v.*')
       ->from('article a, a.Thing t')
-      ->leftJoin('t.Vote v with v.user_id = ?', $this->getUser()->getId())
       ->groupBy('a.id')
       ->orderBy('a.created_at DESC');
     
@@ -69,7 +66,6 @@ class articleActions extends ApplicationActions
     
     $cache_hash = array(
       'latest',
-      'user-' . $this->getUser()->getId(),
       'flavour-' . $this->flavour,
       'page-' . $request->getParameter('page', 1),
       'perpage-' . sfConfig::get('app_things_perpage')  

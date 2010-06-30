@@ -1,5 +1,5 @@
-<?php $t = $article['Thing']; ?>
-<div class="linkitem item-flavour-<?php echo $article['flavour'] ?>" id="link-item-<?php echo $article['id']; ?>">
+<?php $t = $a->getThing(); ?>
+<div class="linkitem item-flavour-<?php echo $a->getFlavour() ?>" id="link-item-<?php echo $a->getId(); ?>">
 
   <?php if (isset($nopos)): ?>
     <span class="itempos">&nbsp;</span>
@@ -9,33 +9,33 @@
 
   <div class="votebtn">
     <?php if ($sf_user->isAuthenticated()):?>
-      <?php $vote = @$t['Vote'][0]; ?>
-      <?php if (is_array($vote)): ?>
+      <?php $vote = $a->getThing()->getUserVote($sf_user->getId()); ?>
+      <?php if ($vote): ?>
         <?php if ($vote['type'] == 'up'): ?>
-            <a href="#" onclick="voteUp(this, <?php echo $t['id']; ?>); return false;">
-              <?php echo image_tag('mod_up.png', array('id' => 'link-up-' . $t['id'])) ?>
+            <a href="#" onclick="voteUp(this, <?php echo $t->getId(); ?>); return false;">
+              <?php echo image_tag('mod_up.png', array('id' => 'link-up-' . $t->getId())) ?>
             </a>
         <?php else: ?>
-            <a href="#" onclick="voteUp(this, <?php echo $t['id']; ?>); return false;">
-              <?php echo image_tag('up.png', array('id' => 'link-up-' . $t['id'])) ?>
+            <a href="#" onclick="voteUp(this, <?php echo $t->getId(); ?>); return false;">
+              <?php echo image_tag('up.png', array('id' => 'link-up-' . $t->getId())) ?>
             </a>
         <?php endif; ?>
         <?php if ($vote['type'] == 'down'): ?>
-            <a href="#" onclick="voteDown(this, <?php echo $t['id']; ?>); return false;">
-              <?php echo image_tag('mod_down.png', array('id' => 'link-down-' . $t['id'])) ?>
+            <a href="#" onclick="voteDown(this, <?php echo $t->getId(); ?>); return false;">
+              <?php echo image_tag('mod_down.png', array('id' => 'link-down-' . $t->getId())) ?>
             </a>
         <?php else: ?>
-            <a href="#" onclick="voteDown(this, <?php echo $t['id']; ?>); return false;">
-              <?php echo image_tag('down.png', array('id' => 'link-down-' . $t['id'])) ?>
+            <a href="#" onclick="voteDown(this, <?php echo $t->getId(); ?>); return false;">
+              <?php echo image_tag('down.png', array('id' => 'link-down-' . $t->getId())) ?>
             </a>
         <?php endif; ?>
       <?php else: ?>
-        <a href="#" onclick="voteUp(this, <?php echo $t['id']; ?>); return false;"><?php echo image_tag('up.png', array('id' => 'link-up-' . $t['id'])) ?></a>
-        <a href="#" onclick="voteDown(this, <?php echo $t['id']; ?>); return false;"><?php echo image_tag('down.png', array('id' => 'link-down-' . $t['id'])) ?></a>
+        <a href="#" onclick="voteUp(this, <?php echo $t->getId(); ?>); return false;"><?php echo image_tag('up.png', array('id' => 'link-up-' . $t->getId())) ?></a>
+        <a href="#" onclick="voteDown(this, <?php echo $t->getId(); ?>); return false;"><?php echo image_tag('down.png', array('id' => 'link-down-' . $t->getId())) ?></a>
       <?php endif; ?>
     <?php else: ?>
-      <a href="#" onclick="return false;"><?php echo image_tag('up.png', array('id' => 'link-up-' . $t['id'])) ?></a>
-      <a href="#" onclick="return false;"><?php echo image_tag('down.png', array('id' => 'link-down-' . $t['id'])) ?></a>
+      <a href="#" onclick="return false;"><?php echo image_tag('up.png', array('id' => 'link-up-' . $t->getId())) ?></a>
+      <a href="#" onclick="return false;"><?php echo image_tag('down.png', array('id' => 'link-down-' . $t->getId())) ?></a>
     <?php endif; ?>
   </div>
 
@@ -44,7 +44,7 @@
       <p><?php echo link_to($a->getTitle(), $a->getUrl(), array('class' => 'name', 'target' => '_blank')); ?></p>
       <p class="url"><?php echo $a->getUrl(); ?></p>
     <?php else: ?>
-      <p><?php echo link_to_article($article, array('class' => 'name')); ?></p>
+      <p><?php echo link_to_article($a, array('class' => 'name')); ?></p>
     <?php endif;?>
     
     <p class="link_footer">
@@ -52,34 +52,34 @@
       <?php $score = $t['score']; ?>
       <?php if ($score > 0): ?>
         <?php if ($score === 1): ?>
-          <span id="link-score-<?php echo $t['id']; ?>"><?php echo $t['score']; ?></span> point
+          <span id="link-score-<?php echo $t->getId(); ?>"><?php echo $t['score']; ?></span> point
         <?php else: ?>
-          <span id="link-score-<?php echo $t['id']; ?>"><?php echo $t['score']; ?></span> points
+          <span id="link-score-<?php echo $t->getId(); ?>"><?php echo $t['score']; ?></span> points
         <?php endif; ?>
       <?php endif; ?>
             
-      posted <?php echo time_ago_in_words(strtotime($article['created_at'])) ?> ago
-      by <span class="link_author"><?php echo link_to($article['username'], 'profile/' . $article['username']); ?></span>
-      <?php $comment_count = $article['total_comments']; ?>
+      posted <?php echo time_ago_in_words(strtotime($a->getCreatedAt())) ?> ago
+      by <span class="link_author"><?php echo link_to($a->getUsername(), "@show_profile?username=" . $a->getUsername()); ?></span>
+      <?php $comment_count = $a->getTotalComments(); ?>
       <?php if ($comment_count == 1): ?>
         <a class="ctrl" href="<?php echo url_for($a->getViewUrl()); ?>">1 comment</a>
       <?php else: ?>
         <a class="ctrl" href="<?php echo url_for($a->getViewUrl()); ?>"><?php echo $comment_count; ?> comments</a>
       <?php endif; ?>
       <?php if ($sf_user->isAuthenticated() && $sf_user->isAdmin()): ?>
-        <?php echo link_to('delete', 'article/delete?articleid=' . $article['id'], array('class' => 'ctrl admin', 'confirm' => 'Are you sure you want to delet this?')); ?>
+        <?php echo link_to('delete', 'article/delete?articleid=' . $a->getId(), array('class' => 'ctrl admin', 'confirm' => 'Are you sure you want to delet this?')); ?>
       <?php endif; ?>
     </p>
 
     <?php if ($a->getFlavour() == 'snapshot'): ?>
       <?php $snapshot = $a->getSnapshot(true); ?>
       <a title="<?php echo $a->getTitle(); ?>" rel="lightbox" target="_blank" href="<?php echo $snapshot->getUrl(); ?>"><img class="snapshot" src="<?php echo $snapshot->getThumbnailUrl(200); ?>" /></a>
-      <p class="link_summary"><?php echo truncate_text($article['summary'], 200); ?></p>
+      <p class="link_summary"><?php echo truncate_text($a->getSummary(), 200); ?></p>
       <div class="clear"></div>
     <?php endif; ?>
 
     <?php if ($a->getFlavour() == 'link'): ?>
-      <p class="link_summary"><?php echo truncate_text($article['summary'], 200); ?></p>
+      <p class="link_summary"><?php echo truncate_text($a->getSummary(), 200); ?></p>
       <?php if ($a->getHasThumbnails()): ?>
         <?php $ftas = $a->getFiles(true); ?>
         <?php if (count($ftas) > 0): ?>

@@ -37,7 +37,6 @@ class profileActions extends ApplicationActions
     $q2 = Doctrine_Query::create()->select('a.*, t.*, v.*')
       ->from('article a, a.Thing t')
       ->where('a.user_id = ?', $this->user->getId())
-      ->leftJoin('t.Vote v with v.user_id = ?', $this->user->getId())
       ->groupBy('a.id')
       ->orderBy('a.created_at DESC')
       ->useResultCache(true);
