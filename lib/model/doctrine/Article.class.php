@@ -18,6 +18,7 @@ class Article extends BaseArticle
   
   public function invalidateCache()
   {
+    /*
     $manager = Doctrine_Manager::getInstance();
     $cache_driver = $manager->getAttribute(Doctrine::ATTR_RESULT_CACHE);
     
@@ -27,6 +28,11 @@ class Article extends BaseArticle
       AppLog::add('info', 'invalidated cache hotlist: ' . $c1);
       AppLog::add('info', 'invalidated cache latestlist: ' . $c2);
     }
+    */
+    
+    $job = array('operation' => 'UpdateListingCache', 'TotalPages' => 5);
+    $queue = new RedisJobQueue(CacheUpdateWorker::QUEUE_NAME);
+    $queue->addJob($job);
   }
   
   public function postSave($event)
@@ -113,9 +119,20 @@ class Article extends BaseArticle
   public static function getSupportedCodeLanguages()
   {
     $languages = array(
-      'PHP' => array('brush' => 'shBrushPhp.js', 'alias' => 'php'),
-      'Ruby'=> array('brush' => 'shBrushRuby.js', 'alias' => 'ruby')
+      'PHP'           => array('brush' => 'shBrushPhp.js', 'alias' => 'php'),
+      'Ruby'          => array('brush' => 'shBrushRuby.js', 'alias' => 'ruby'),
+      'Actionscript'  => array('brush' => 'shBrushAS3.js', 'alias' => 'as3'),
+      'BASH'          => array('brush' => 'shBrushBash.js', 'alias' => 'bash'),
+      'ColdFusion'    => array('brush' => 'shBrushColdFusion.js', 'alias' => 'coldfusion'),
+      'C++'           => array('brush' => 'shBrushCpp.js', 'alias' => 'cpp'),
+      'C#'            => array('brush' => 'shBrushCSharp.js', 'alias' => 'csharp'),
+      'CSS'           => array('brush' => 'shBrushCss.js', 'alias' => 'css'),
+      'Java'          => array('brush' => 'shBrushJava.js', 'alias' => 'java'),
+      'Javscript'     => array('brush' => 'shBrushJScript.js', 'alias' => 'js'),
+      'Perl'          => array('brush' => 'shBrushPerl.js', 'alias' => 'perl'),
+      'Python'        => array('brush' => 'shBrushPython.js', 'alias' => 'python'),
     );
+    
     return $languages;
   }
   

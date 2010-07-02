@@ -226,4 +226,12 @@ Invite:
       foreign: id
       foreignType: many
     
+InviteRequest:
+  actAs:
+    Timestampable: ~
+  columns:
+    email: string(100)
+    url: string(100)
+    firstname: string(50)
+    lastname: string(50)    
     

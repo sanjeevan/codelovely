@@ -5,7 +5,7 @@
 <?php $class_snap   = $flavour == 'snapshot' ? 'active' : ''; ?>
 <?php $class_quest  = $flavour == 'question' ? 'active' : ''; ?>
 
-<h1 style="float: left;">Latest links</h1>
+<h1 style="float: left;">Latest</h1>
 <ul class="listing-flavour-filter">
   <li><?php echo link_to('Links', '@latest_flav?flavour=link', array('class' => $class_link)); ?></li>
   <li><?php echo link_to('Code', '@latest_flav?flavour=code', array('class' => $class_code)); ?></li>

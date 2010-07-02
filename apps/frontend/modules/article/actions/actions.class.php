@@ -25,7 +25,7 @@ class articleActions extends ApplicationActions
       ->orderBy('t.hot DESC');
     
     if (in_array($this->flavour, Article::getFlavours())){
-      $q->andWhere('a.flavour = ?', $this->flavour);
+      $q->where('a.flavour = ?', $this->flavour);
     }
     
     $cache_hash = array(
@@ -61,7 +61,7 @@ class articleActions extends ApplicationActions
       ->orderBy('a.created_at DESC');
     
     if (in_array($this->flavour, Article::getFlavours())){
-      $q->andWhere('a.flavour = ?', $this->flavour);
+      $q->where('a.flavour = ?', $this->flavour);
     }
     
     $cache_hash = array(

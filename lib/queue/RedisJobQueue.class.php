@@ -42,7 +42,7 @@ class RedisJobQueue
       throw new Exception('RedisJobQueue must have a name specified');
     }
 
-    $this->name = $this->options['namespace'] . '.' . $name;
+    $this->name = $this->options['namespace'] . ':' . $name;
     
     $conn = $this->options['servers']['server1'];
     $this->redis = new Predis_Client($conn);
@@ -67,17 +67,6 @@ class RedisJobQueue
     if (!$this->redis->isConnected()){
       $this->redis->connect();
     }
-    
-    /*
-    $this->redis = new Redis();
-
-    if (!$this->redis->connect($con['host'], $con['port'])){
-      throw new Exception('Could not connect to redis host');
-    }
-    */
-    
-    
-    
   }
 
   /**
@@ -101,7 +90,7 @@ class RedisJobQueue
   public function addJob($job = array(), $expire = 3600, $meta = true)
   {
     // attach an id, and timestamp to the data
-    $job['id'] = $this->name . '.Job.' . myUtil::UUID();
+    $job['id'] = $this->name . ':Job:' . myUtil::UUID();
     $job['created_at'] = time();
 
     // add to queue
@@ -132,7 +121,7 @@ class RedisJobQueue
    */
   public function setJobMetaField($id, $field, $value)
   {
-    $this->redis->set("{$id}.{$field}", serialize($value));
+    $this->redis->set("{$id}:{$field}", serialize($value));
   }
 
   /**
@@ -143,10 +132,10 @@ class RedisJobQueue
    */
   public function setJobMeta($key = null, $data = array())
   {
-    $this->redis->set("{$key}._fields", serialize(array_keys($data)));
+    $this->redis->set("{$key}:_fields", serialize(array_keys($data)));
 
     foreach ($data as $k => $v){
-      $this->redis->set("{$key}.$k", serialize($v));
+      $this->redis->set("{$key}:$k", serialize($v));
     }
   }
 
@@ -157,7 +146,7 @@ class RedisJobQueue
    */
   public function getJobMeta($key)
   {
-    $field_data = $this->redis->get("{$key}._fields");
+    $field_data = $this->redis->get("{$key}:_fields");
 
     if (!$field_data){
       return false;
@@ -167,7 +156,7 @@ class RedisJobQueue
     $meta = array();
 
     foreach ($fields as $f){
-      $d = $this->redis->get("{$key}.$f");
+      $d = $this->redis->get("{$key}:$f");
       if ($d !== false){
         $meta[$f] = unserialize($d);
       }
@@ -183,17 +172,17 @@ class RedisJobQueue
    */
   public function deleteMeta($key)
   {
-    $field_data = $this->redis->get("{$key}._fields");
+    $field_data = $this->redis->get("{$key}:_fields");
 
     if (!$field_data){
       return false;
     }
 
-    $this->redis->delete("{$key}._fields");
+    $this->redis->delete("{$key}:_fields");
     $fields = unserialize($field_data);
 
     foreach ($fields as $f){
-      $this->redis->delete("{$key}.$f");
+      $this->redis->delete("{$key}:$f");
     }
 
     return true;
