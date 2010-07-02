@@ -78,6 +78,15 @@ h3 {
   color: #1C8400;
 }
 
+#invite-only {
+  border: 1px solid #fff;
+  padding: 5px;
+  margin: 10px auto 10px auto;
+  background: #C3D9FF;
+  font-weight: bold;
+  color: #36393D;
+}
+
 .clear {
   clear: both;
 }

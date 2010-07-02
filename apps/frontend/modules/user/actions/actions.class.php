@@ -10,6 +10,11 @@
  */
 class userActions extends ApplicationActions
 {
+  /**
+   * Allows user to send their allocated invites
+   * 
+   * @param sfWebRequest $request
+   */
   public function executeInvites(sfWebRequest $request)
   {
     $this->user = $this->getUser()->getModel();

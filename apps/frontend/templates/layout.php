@@ -21,6 +21,10 @@
     
     <div class="container">
 
+      <?php if (!$sf_user->isAuthenticated() && $sf_user->getAttribute('showpromo', true, 'promo')): ?>
+        <?php include_partial('invite/promo'); ?>
+      <?php endif; ?>
+
       <?php if ($sf_user->hasFlash('notice') || $sf_user->hasFlash('error')): ?>
       <div class="columns-12">
         <?php include_partial('global/flash'); ?>       

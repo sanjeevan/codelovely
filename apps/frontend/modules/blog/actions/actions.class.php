@@ -30,6 +30,11 @@ class blogActions extends ApplicationActions
     $this->pager->init();
   }
 
+  /**
+   * Add a new blog post entry
+   * 
+   * @param sfWebRequest $request
+   */
   public function executeNew(sfWebRequest $request)
   {
     $blog_entry = new BlogEntry();
@@ -56,6 +61,11 @@ class blogActions extends ApplicationActions
     }
   }
 
+  /**
+   * Edit existing blog post entry
+   * 
+   * @param sfWebRequest $request
+   */
   public function executeEdit(sfWebRequest $request)
   {
     $blog_entry = Doctrine::getTable('BlogEntry')->find($request->getParameter('id'));
@@ -85,6 +95,12 @@ class blogActions extends ApplicationActions
     }
   }
 
+  /**
+   * Delete blog entry
+   * 
+   * @param sfWebRequest $request
+   * @throws sfSecurityException
+   */
   public function executeDelete(sfWebRequest $request)
   {
     $post = Doctrine::getTable('BlogEntry')->find($request->getParameter('id'));
@@ -101,6 +117,11 @@ class blogActions extends ApplicationActions
     $this->redirect('@homepage');
   }
 
+  /**
+   * Show a single blog post
+   * 
+   * @param sfWebRequest $request
+   */
   public function executeShow(sfWebRequest $request)
   {
     $this->b = Doctrine::getTable('BlogEntry')->findOneBySlug($request->getParameter('slug'));

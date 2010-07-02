@@ -6,6 +6,9 @@ sfContext::createInstance($configuration);
 
 error_reporting(E_ALL);
 
+$cache_update_worker = new CacheUpdateWorker('cache-update-worker');
+$cache_update_worker->refreshAllListingCache();
+
 /*
 $manager = Doctrine_Manager::getInstance();
 $default = $manager->getConnection('doctrine');
@@ -75,5 +78,5 @@ foreach ($base_paths as $base_path){
 }
 */
 
-echo sfConfig::get('sf_root_dir');
+//echo sfConfig::get('sf_root_dir');
 

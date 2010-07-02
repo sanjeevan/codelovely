@@ -5,7 +5,7 @@
 <?php $class_snap   = $flavour == 'snapshot' ? 'active' : ''; ?>
 <?php $class_quest  = $flavour == 'question' ? 'active' : ''; ?>
 
-<h1 style="float: left;">Latest links</h1>
+<h1 style="float: left;">Latest</h1>
 <ul class="listing-flavour-filter">
   <li><?php echo link_to('Links', '@latest_flav?flavour=link', array('class' => $class_link)); ?></li>
   <li><?php echo link_to('Code', '@latest_flav?flavour=code', array('class' => $class_code)); ?></li>
@@ -16,8 +16,8 @@
 <div class="clear"></div>
 
 <?php $pos = $pager->getFirstIndice(); ?>
-<?php foreach ($pager->getResults() as $row): ?>
-  <?php include_partial('article/article', array('article' => $row->toArray(), 'pos' => $pos, 'a' => $row)); ?>
+<?php foreach ($pager->getResults() as $article): ?>
+  <?php include_partial('article/article', array('pos' => $pos, 'a' => $article)); ?>
   <?php $pos++; ?>
 <?php endforeach;?>
 

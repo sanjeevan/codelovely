@@ -36,7 +36,7 @@
 
 <?php $pos = $pager->getFirstIndice(); ?>
 <?php foreach ($pager->getResults() as $article): ?>
-  <?php include_partial('article/article', array('article' => $article->toArray(), 'pos' => $pos, 'a' => $article)); ?>
+  <?php include_partial('article/article', array('pos' => $pos, 'a' => $article)); ?>
   <?php $pos++; ?>
 <?php endforeach; ?>
 

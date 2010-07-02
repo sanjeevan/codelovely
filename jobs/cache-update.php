@@ -6,26 +6,11 @@ $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', '
 sfContext::createInstance($configuration);
 error_reporting(E_ALL & ~E_STRICT);
 
-$manager = Doctrine_Manager::getInstance();
-$cache_driver = $manager->getAttribute(Doctrine::ATTR_RESULT_CACHE);
-
-if ($cache_driver instanceof Doctrine_Cache_Driver){
-  
-  // remove the first page cache of hotlist
-  echo $cache_driver->deleteByPrefix('hotlist');
-  echo "\n";  
-  
-  echo $cache_driver->deleteByPrefix('articlecomments');
-}
-
-
-
-/*
 define('RUN_DIR', dirname(__FILE__) . '/run');
-define('JOB_NAME', 'send-email');
+define('JOB_NAME', 'cache-update');
 
 function usage(){
-  echo "Usage: ./send-email.php [start|stop] name\n";
+  echo "Usage: ./cache-update.php [start|stop] name\n";
 }
 
 if (php_sapi_name() != 'cli'){
@@ -73,13 +58,11 @@ if (WorkerDaemonTools::isWorkerRunning($worker_name, RUN_DIR)){
 }
 
 try {
-  $worker = new SendEmailWorker($worker_name, RUN_DIR);
+  $worker = new CacheUpdateWorker($worker_name, RUN_DIR);
   $worker->run();
 } catch (Exception $e){
   $worker->logMessage($e);
   exit(0);
 }
-*/
-
 
 

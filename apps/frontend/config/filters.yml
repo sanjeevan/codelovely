@@ -5,6 +5,8 @@ rendering: ~
 security:  ~
 
 # insert your own filters here
+adminFilter:
+  class: AdminFilter
 exceptionCatchFilter:
   class: ExceptionCatchFilter
 cache:     ~

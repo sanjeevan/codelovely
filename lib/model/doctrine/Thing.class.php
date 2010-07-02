@@ -80,7 +80,8 @@ class Thing extends BaseThing
   {
     $q = Doctrine_Query::create()
       ->from('Vote v')
-      ->where('v.user_id = ? and v.thing_id = ?', array($user->getId(), $this->getId()));
+      ->where('v.user_id = ? and v.thing_id = ?', array($user->getId(), $this->getId()))
+      ->limit(1);
       
     $vote = $q->fetchOne();
     
@@ -93,11 +94,14 @@ class Thing extends BaseThing
    * @param User $user
    * @return Vote
    */
-  public function getUserVote(User $user)
+  public function getUserVote($user)
   {
+    $id = $user instanceof User ? $user->getId() : intval($user);
+    
     $q = Doctrine_Query::create()
-      ->form('Vote v')
-      ->where('v.user_id =? and v.thing_id = ?', array($user->getId(), $this->getId()));
+      ->from('Vote v')
+      ->where('v.user_id =? and v.thing_id = ?', array($id, $this->getId()))
+      ->limit(1);
       
     return $q->fetchOne();
   }
