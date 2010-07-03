@@ -13,4 +13,4 @@
 /plugins/.registry/*
 /jobs/run/*
 /scripts/*.sql
-
+/web/css/scaffold/config.php

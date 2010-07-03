@@ -1,0 +1,3 @@
+check process send_send1 with pidfile /var/www/frostty/jobs/run/send-email-worker1.pid
+  start = "/var/www/frostty/jobs/send-email.php start worker1"
+  stop = "/var/www/frostty/jobs/send-email.php stop worker1"

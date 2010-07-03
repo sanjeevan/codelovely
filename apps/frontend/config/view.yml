@@ -6,7 +6,7 @@ default:
     content-type: text/html
 
   metas:
-    title:        Frostty
+    title:        Share links, code, snapshots and ask questions - Frostty
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en
