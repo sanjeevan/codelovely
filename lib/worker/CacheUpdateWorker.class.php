@@ -7,6 +7,8 @@ class CacheUpdateWorker extends WorkerDaemon
   private $iter =0;
   private $queue = null;
   
+  private $last_listing_refresh = 0;
+  
   // how the listing cache ids are formatted
   private $listing_cache_hashes = array(
     'cacheHotQuery'     => 'hot_flavour-%flavour%_page-%page%_perpage-%perpage%',
@@ -50,15 +52,27 @@ class CacheUpdateWorker extends WorkerDaemon
     while ($job = $this->queue->popJob()){
       $this->processJob($job);
     }
+    
+    // if the last full refresh was over 3600 seconds ago, then do a refresh
+    $ago = time() - $this->last_listing_refresh;
+    if ($ago >= 3500){
+      $this->refreshAllListingCache(5);
+    } 
   }
   
+  /**
+   * Process a single job in the queue
+   * 
+   * @param array $job
+   */
   public function processJob($job)
   {
     $operation = isset($job['operation']) ? $job['operation'] : 'UpdateListingCache';
+    $total_pages = isset($job['TotalPages']) ? $job['TotalPages'] : 10;
     
     switch ($operation){
       case 'UpdateListingCache':
-        $this->refreshAllListingCache($job);
+        $this->refreshAllListingCache($total_pages);
         break;
       default:
         break;
@@ -70,12 +84,11 @@ class CacheUpdateWorker extends WorkerDaemon
    * Refreshes caches for all listings
    * 
    */
-  public function refreshAllListingCache($job = array())
+  public function refreshAllListingCache($total_pages = 10)
   {
     $perpage = sfConfig::get('app_things_perpage');
     $flavours = array_merge(array('all'), Article::getFlavours());
-    $total_pages = isset($job['TotalPages']) ? $job['TotalPages'] : 10;
-    
+        
     $cache_vars = array('%flavour%', '%page%', '%perpage%');
     
     // generates the cache hash for hot/latest listing and rehashes them
@@ -93,6 +106,8 @@ class CacheUpdateWorker extends WorkerDaemon
         }
       }      
     }
+    
+    $this->last_listing_refresh = time();
   }
   
   /**
