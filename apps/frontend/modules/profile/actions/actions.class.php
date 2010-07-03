@@ -45,6 +45,8 @@ class profileActions extends ApplicationActions
       
     if (in_array($this->flavour, Article::getFlavours())){
       $q2->andWhere('a.flavour = ?', $this->flavour);
+    } else {
+      $this->flavour = 'all';
     }
     
     $this->pager = new sfDoctrinePager('Article', sfConfig::get('app_things_perpage'));
@@ -65,6 +67,16 @@ class profileActions extends ApplicationActions
         }
       }
     }
+    
+    // set page title
+    $fullname = $this->user->getFirstname() . ' ' . $this->user->getLastname();
+    $flavour_filter = Article::getFlavourName($this->flavour);
+    $title = $fullname;
+    if (isset($flavour_filter)){
+      $title .= ' - ' . $flavour_filter;
+    }
+    $title .= ' - ' . sfConfig::get('app_name');
+    $this->getResponse()->setTitle($title);
   }
   
   public function executeAvatar(sfWebRequest $request)

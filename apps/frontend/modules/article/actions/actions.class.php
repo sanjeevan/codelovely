@@ -26,6 +26,8 @@ class articleActions extends ApplicationActions
     
     if (in_array($this->flavour, Article::getFlavours())){
       $q->where('a.flavour = ?', $this->flavour);
+    } else {
+      $this->flavour = 'all';
     }
     
     $cache_hash = array(
@@ -44,6 +46,19 @@ class articleActions extends ApplicationActions
     $this->pager->init();
         
     $this->insertCodeFlavouredResources();
+    
+    // page title
+    $title = '';
+    if ($this->flavour != 'all'){
+      $title .= 'Hot ' . Article::getFlavourName($this->flavour);
+      $title .= ' - Page ' . $request->getParameter('page', 1);
+      $title .= ' - ' . sfConfig::get('app_name');
+    } else {
+      $title .= sfConfig::get('app_tagline');
+      $title .= ' - Page ' . $request->getParameter('page', 1);
+      $title .= ' - ' . sfConfig::get('app_name');
+    }
+    $this->getResponse()->setTitle($title);
   }
 
   /**
@@ -62,6 +77,8 @@ class articleActions extends ApplicationActions
     
     if (in_array($this->flavour, Article::getFlavours())){
       $q->where('a.flavour = ?', $this->flavour);
+    } else {
+      $this->flavour = 'all';
     }
     
     $cache_hash = array(
@@ -80,6 +97,19 @@ class articleActions extends ApplicationActions
     $this->pager->init();
     
     $this->insertCodeFlavouredResources();
+    
+    // page title
+    $title = '';
+    if ($this->flavour != 'all'){
+      $title .= 'Latest ' . Article::getFlavourName($this->flavour);
+      $title .= ' - Page ' . $request->getParameter('page', 1);
+      $title .= ' - ' . sfConfig::get('app_name');
+    } else {
+      $title .= sfConfig::get('app_tagline');
+      $title .= ' - Page ' . $request->getParameter('page', 1);
+      $title .= ' - ' . sfConfig::get('app_name');
+    }
+    $this->getResponse()->setTitle($title);
   }
   
   /**
