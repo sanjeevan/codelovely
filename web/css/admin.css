@@ -9,3 +9,13 @@ ul#main-navigation {
 span.welcome span.username {
   color: red !important;
 }
+
+table#waitinglist td {
+  padding: 5px;
+}
+
+table#waitinglist thead {
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+}

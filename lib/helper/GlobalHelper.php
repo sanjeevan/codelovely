@@ -8,10 +8,8 @@
  */
 function link_to_article($article, $options)
 {
-  if ($article instanceof Article){
-    $article = $article->toArray();
-  }
-  
+  $article = $article instanceof Article ? $article->toArray() : $article;
+
   switch ($article['flavour']){
     case 'code':
       return link_to($article['title'], '@code?slug=' . $article['slug'], $options);

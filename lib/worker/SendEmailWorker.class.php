@@ -33,6 +33,10 @@ class SendEmailWorker extends WorkerDaemon
     $this->mailer = sfContext::getInstance()->getMailer();
   }
   
+  /**
+   * Keep the doctrine and redis connections alive
+   * 
+   */
   public function keepAlive($interval = 300)
   {
     if ($this->iter == $interval){
@@ -51,6 +55,11 @@ class SendEmailWorker extends WorkerDaemon
     $this->iter++;
   }
   
+  /**
+   * Main event loop
+   * (non-PHPdoc)
+   * @see worker/WorkerDaemon::process()
+   */
   public function process()
   {
     $this->keepAlive();
@@ -60,6 +69,11 @@ class SendEmailWorker extends WorkerDaemon
     }
   }
   
+  /**
+   * Process a single job 
+   * 
+   * @param array $job
+   */
   public function processJob($job)
   {
     if (!$job){

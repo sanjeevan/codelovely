@@ -13,5 +13,4 @@ Best,
 The <?php echo sfConfig::get('app_name'); ?> Team
  
  
- This email was intended for <?php echo $to; ?>
- 
+This email was intended for <?php echo $to; ?>
