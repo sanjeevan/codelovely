@@ -11,11 +11,34 @@
  */
 class Article extends BaseArticle
 {
-  public static function getFlavours()
+  static $valid_flavours = array(
+    'link'      => 'Links',
+    'code'      => 'Code',
+    'snapshot'  => 'Snapshots',
+    'question'  => 'Questions' 
+  );
+  
+  public static function getFlavourName($flavour)
   {
-    return array('link', 'code', 'snapshot', 'question');
+    if (isset(self::$valid_flavours[$flavour])){
+      return self::$valid_flavours[$flavour];
+    }
   }
   
+  /**
+   * Get valid flavours
+   * 
+   */
+  public static function getFlavours()
+  {
+    return array_keys(self::$valid_flavours);
+  }
+  
+  /**
+   * Invalidate cache, the actual invalidation of the cache is run in a background
+   * process
+   * 
+   */
   public function invalidateCache()
   {
     /*

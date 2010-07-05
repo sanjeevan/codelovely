@@ -12,4 +12,33 @@
  */
 class InviteRequest extends BaseInviteRequest
 {
+  public function sendInvitation(User $user, sfActions $action)
+  {
+    // create a new invite for the admin user
+    $invite = Invite::createInvite($user);
+    if (!$invite){
+      return false;
+    }
+    
+    // message variables
+    $vars = array(
+      'invite' => $invite,
+      'name'   => $this->getFirstname(),
+      'user'   => $user,
+      'to'     => $this->getEmail()
+    );
+    // mail body
+    $message = $action->getPartial('mail/new_invite', $vars);
+    // email job variables
+    $email_job = array(
+      'to'      => $this->getEmail(),
+      'subject' => 'You have been sent an invite to join ' . sfConfig::get('app_name'),
+      'from'    => 'noreply@' . $_SERVER['HTTP_HOST'],
+      'message' => $message,
+      'invite'  => $invite->toArray()
+    );
+    
+    $queue = new RedisJobQueue(SendEmailWorker::QUEUE_NAME);
+    $queue->addJob($email_job, false, false);
+  }
 }

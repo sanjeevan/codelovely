@@ -225,6 +225,10 @@ Invite:
       type: one
       foreign: id
       foreignType: many
+  indexes:
+    code_index:
+      fields: [code]
+      type: unique
     
 InviteRequest:
   actAs:

@@ -209,15 +209,15 @@ class ThumbnailScraperWorker extends WorkerDaemon
       $default->connect();
       $this->iter = 0;
     }
-
-    $job = $this->queue->popJob();
-
-    try {
-      $this->processJob($job);
-    } catch (Exception $e){
-      $this->logMessage($e);
+    
+    while ($job = $this->queue->popJob()){
+      try {
+        $this->processJob($job);
+      } catch (Exception $e){
+        $this->logMessage($e);
+      }
     }
-
+    
     $this->iter++;
   }
 

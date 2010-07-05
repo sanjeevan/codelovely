@@ -30,10 +30,26 @@ class Invite extends BaseInvite
    * 
    * @return string
    */
-  public static function generateCode()
+  public static function generateCode($length = 6)
   {
-    $code = myUtil::getRandomSalt(6);
+    $code = myUtil::getRandomSalt($length);
     return strtoupper($code); 
+  }
+  
+  /**
+   * Create an invite for a user's account
+   * 
+   * @param User $user
+   */
+  public static function createInvite(User $user)
+  {
+    $invite = new Invite();
+    $invite->setUser($user);
+    $invite->setStatus('unused');
+    $invite->setCode(self::generateCode(10));
+    $invite->save();
+    
+    return $invite;
   }
   
   /**

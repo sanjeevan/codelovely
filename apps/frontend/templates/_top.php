@@ -12,6 +12,7 @@
     <span><?php echo image_tag('white/16x16/round_plus.png'); ?> <?php echo link_to('Add', '@add'); ?></span>,
     <?php if ($sf_user->isAdmin()): ?>
       <span><?php echo link_to('Add blog post', 'blog/new'); ?></span>,
+      <span><?php echo link_to('Invite requests', 'invite/listRequests'); ?>
     <?php endif; ?>
     <span class="welcome">Welcome back <span class="username"><?php echo link_to($sf_user->getModel()->getUsername(), '@show_profile?username=' . $sf_user->getModel()->getUsername()); ?></span></span>
     <?php echo link_to('settings', '/user/settings'); ?>

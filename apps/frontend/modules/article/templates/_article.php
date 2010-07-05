@@ -44,17 +44,17 @@
       <p><?php echo link_to($a->getTitle(), $a->getUrl(), array('class' => 'name', 'target' => '_blank')); ?></p>
       <p class="url"><?php echo $a->getUrl(); ?></p>
     <?php else: ?>
-      <p><?php echo link_to_article($a, array('class' => 'name')); ?></p>
+      <p><?php echo link_to($a->getTitle(), $a->getViewUrl(), array('class' => 'name')); ?></p>
     <?php endif;?>
     
     <p class="link_footer">
-      <span class="flavour-<?php echo $a['flavour']; ?>"><?php echo $a['flavour']; ?></span>
-      <?php $score = $t['score']; ?>
+      <span class="flavour-<?php echo $a->getFlavour(); ?>"><?php echo $a->getFlavour(); ?></span>
+      <?php $score = $t->getScore(); ?>
       <?php if ($score > 0): ?>
         <?php if ($score === 1): ?>
-          <span id="link-score-<?php echo $t->getId(); ?>"><?php echo $t['score']; ?></span> point
+          <span id="link-score-<?php echo $t->getId(); ?>"><?php echo $t->getScore(); ?></span> point
         <?php else: ?>
-          <span id="link-score-<?php echo $t->getId(); ?>"><?php echo $t['score']; ?></span> points
+          <span id="link-score-<?php echo $t->getId(); ?>"><?php echo $t->getScore(); ?></span> points
         <?php endif; ?>
       <?php endif; ?>
             

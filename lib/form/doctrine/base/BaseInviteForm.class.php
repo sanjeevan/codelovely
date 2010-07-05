@@ -38,6 +38,10 @@ abstract class BaseInviteForm extends BaseFormDoctrine
       'updated_at'      => new sfValidatorDateTime(),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'Invite', 'column' => array('code')))
+    );
+
     $this->widgetSchema->setNameFormat('invite[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

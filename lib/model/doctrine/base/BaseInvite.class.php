@@ -67,6 +67,15 @@ abstract class BaseInvite extends sfDoctrineRecord
              'type' => 'integer',
              'length' => '4',
              ));
+
+
+        $this->index('code_index', array(
+             'fields' => 
+             array(
+              0 => 'code',
+             ),
+             'type' => 'unique',
+             ));
     }
 
     public function setUp()
