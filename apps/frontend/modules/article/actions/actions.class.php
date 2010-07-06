@@ -53,7 +53,7 @@ class articleActions extends ApplicationActions
       $title .= 'Hot ' . Article::getFlavourName($this->flavour);
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
-    } else {
+    } elseif ($request->getParameter('page', 1) != 1) {
       $title .= sfConfig::get('app_tagline');
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
@@ -104,7 +104,7 @@ class articleActions extends ApplicationActions
       $title .= 'Latest ' . Article::getFlavourName($this->flavour);
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
-    } else {
+    } elseif ($request->getParameter('page', 1) != 1) {
       $title .= sfConfig::get('app_tagline');
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
