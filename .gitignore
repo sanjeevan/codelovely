@@ -2,6 +2,7 @@
 *.swp
 *.log
 *.cache
+Thumbs.db
 /log/*
 /cache/*
 /web/uploads/*
