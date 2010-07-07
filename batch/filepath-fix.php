@@ -9,7 +9,7 @@ sfContext::createInstance($configuration);
 $files = Doctrine::getTable('File')->findAll();
 
 foreach ($files as $f){
-  $location = str_replace('socialhub', 'frostty', $f->getLocation());
+  $location = str_replace('frostty', 'codelovely', $f->getLocation());
   echo "$location\n";
   $f->setLocation($location);
   $f->save();

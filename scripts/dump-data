@@ -1,2 +1,2 @@
 #!/bin/sh
-mysqldump frostty --no-create-info --complete-insert > frostty-data-`date +%d-%m-%y_%H-%M`.sql
+mysqldump codelovely --no-create-info --complete-insert > codelovely-data-`date +%d-%m-%y_%H-%M`.sql

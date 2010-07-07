@@ -141,6 +141,7 @@ div#footer {
   background-color: #333;
   color: #fff;
   padding: 5px;
+  text-align: center;
 }
 
 div#footer a { color: #fff; }

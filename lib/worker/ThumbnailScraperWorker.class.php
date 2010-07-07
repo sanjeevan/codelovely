@@ -8,7 +8,7 @@ class ThumbnailScraperWorker extends WorkerDaemon
   
   private $iter = 0;
   private $image_types = array('jpeg', 'jpg', 'png');
-  private $tmp_path = '/tmp/frostty';
+  private $tmp_path = '/tmp/codelovely';
   
   private $ignore_image_regex = array(
     '#.*www.gravatar.com/.*#',
