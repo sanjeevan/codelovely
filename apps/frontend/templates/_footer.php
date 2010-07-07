@@ -1,5 +1,9 @@
 <div id="footer">
-  <span style="float: left;"> &copy; Copyright <?php echo date('Y'); ?></span>
-  <span style="float: right;"><?php echo link_to(image_tag('php5-power-micro.png'), 'http://www.php.net', array('target' => '_blank')); ?></span>
+
+  &copy; Copyright <?php echo date('Y'); echo ' ' . sfConfig::get('app_name'); ?>
+  
   <div style="clear: both;"></div>
+  
+  <span>twitter: @<a href="http://twitter.com/staycodelovely">staycodelovely</a></span>
+  
 </div>

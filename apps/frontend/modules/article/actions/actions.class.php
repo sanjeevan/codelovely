@@ -3,7 +3,7 @@
 /**
  * article actions.
  *
- * @package    frostty
+ * @package    codelovely
  * @subpackage article
  * @author     Sanjeevan Ambalavanar
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
@@ -53,7 +53,7 @@ class articleActions extends ApplicationActions
       $title .= 'Hot ' . Article::getFlavourName($this->flavour);
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
-    } else {
+    } elseif ($request->getParameter('page', 1) != 1) {
       $title .= sfConfig::get('app_tagline');
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
@@ -104,7 +104,7 @@ class articleActions extends ApplicationActions
       $title .= 'Latest ' . Article::getFlavourName($this->flavour);
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
-    } else {
+    } elseif ($request->getParameter('page', 1) != 1) {
       $title .= sfConfig::get('app_tagline');
       $title .= ' - Page ' . $request->getParameter('page', 1);
       $title .= ' - ' . sfConfig::get('app_name');
