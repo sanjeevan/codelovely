@@ -4,6 +4,6 @@
   
   <div style="clear: both;"></div>
   
-  <span>twitter: @<a href="http://twitter.com/staycodelovely">staycodelovely</a></span>
+  <span>twitter: @<a href="http://twitter.com/codelovely">codelovely</a></span>
   
 </div>
