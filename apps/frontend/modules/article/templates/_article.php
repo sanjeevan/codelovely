@@ -97,8 +97,7 @@
     <?php endif; ?>
     
     <?php if ($a->getFlavour() == 'question'): ?>
-      <?php $question_text = truncate_text($a->getQuestion(), 250); ?>
-      <div class="question-body"><?php echo myUtil::markdown($question_text); ?></div>
+      <div class="question-body"><?php echo $a->getQuestionHtml(); ?></div>
     <?php endif; ?>
   
   </div>

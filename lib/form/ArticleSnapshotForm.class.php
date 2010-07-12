@@ -101,6 +101,7 @@ class ArticleSnapshotForm extends BaseForm
     
     if (strlen($this->getValue('summary')) > 0){
       $article->setSummary($this->getValue('summary'));
+      $article->setSummaryHtml(myUtil::markdown($this->getValue('summary')));
     }
     $article->save();
     

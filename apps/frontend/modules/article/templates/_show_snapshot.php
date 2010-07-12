@@ -22,6 +22,6 @@
 
 <img class="snapshot" src="<?php echo $snapshot->getUrl(); ?>" />
 
-<p class="snapshot-summary"><?php echo $article->getSummary(); ?></p>
+<p class="snapshot-summary"><?php echo $article->getSummaryHtml(); ?></p>
 
 <div class="clear"></div>

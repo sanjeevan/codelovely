@@ -1,3 +1,4 @@
 check process thumbnails_scraper1 with pidfile /var/www/codelovely/jobs/run/thumbnails-scraper-worker1.pid
   start = "/var/www/codelovely/jobs/thumbnails-scraper.php start worker1"
   stop = "/var/www/codelovely/jobs/thumbnails-scraper.php stop worker1"
+  if totalmemory > 200 MB then restart

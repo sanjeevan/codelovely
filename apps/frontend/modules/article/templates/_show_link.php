@@ -24,7 +24,7 @@
 
 <div class="summary">
   <?php if (strlen($article->getSummary()) > 0): ?>
-    <?php echo myUtil::markdown($article->getSummary()); ?>
+    <?php echo $article->getSummaryHtml(); ?>
   <?php endif; ?>
 </div>
 

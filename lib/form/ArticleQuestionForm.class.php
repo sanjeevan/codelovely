@@ -47,6 +47,7 @@ class ArticleQuestionForm extends BaseForm
     $article->setUsername($user->getUsername());
     $article->setTitle($this->getValue('title'));
     $article->setQuestion($this->getValue('question'));
+    $article->setQuestionHtml(myUtil::markdown($this->getValue('question')));
     $article->setFlavour('question');
     $article->setHasThumbnails(false);
     $article->save();

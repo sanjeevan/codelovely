@@ -20,49 +20,58 @@
  * @property boolean $has_thumbnails
  * @property enum $flavour
  * @property boolean $published
+ * @property string $summary_html
+ * @property string $fulldescription_html
+ * @property string $question_html
  * @property User $User
  * @property Thing $Thing
  * @property Doctrine_Collection $Comments
  * @property Doctrine_Collection $FileToArticle
  * 
- * @method integer             getId()              Returns the current record's "id" value
- * @method integer             getUserId()          Returns the current record's "user_id" value
- * @method integer             getThingId()         Returns the current record's "thing_id" value
- * @method string              getUsername()        Returns the current record's "username" value
- * @method string              getTitle()           Returns the current record's "title" value
- * @method string              getUrl()             Returns the current record's "url" value
- * @method string              getSummary()         Returns the current record's "summary" value
- * @method string              getFulldescription() Returns the current record's "fulldescription" value
- * @method string              getCode()            Returns the current record's "code" value
- * @method string              getCodeLanguage()    Returns the current record's "code_language" value
- * @method string              getQuestion()        Returns the current record's "question" value
- * @method integer             getTotalComments()   Returns the current record's "total_comments" value
- * @method boolean             getHasThumbnails()   Returns the current record's "has_thumbnails" value
- * @method enum                getFlavour()         Returns the current record's "flavour" value
- * @method boolean             getPublished()       Returns the current record's "published" value
- * @method User                getUser()            Returns the current record's "User" value
- * @method Thing               getThing()           Returns the current record's "Thing" value
- * @method Doctrine_Collection getComments()        Returns the current record's "Comments" collection
- * @method Doctrine_Collection getFileToArticle()   Returns the current record's "FileToArticle" collection
- * @method Article             setId()              Sets the current record's "id" value
- * @method Article             setUserId()          Sets the current record's "user_id" value
- * @method Article             setThingId()         Sets the current record's "thing_id" value
- * @method Article             setUsername()        Sets the current record's "username" value
- * @method Article             setTitle()           Sets the current record's "title" value
- * @method Article             setUrl()             Sets the current record's "url" value
- * @method Article             setSummary()         Sets the current record's "summary" value
- * @method Article             setFulldescription() Sets the current record's "fulldescription" value
- * @method Article             setCode()            Sets the current record's "code" value
- * @method Article             setCodeLanguage()    Sets the current record's "code_language" value
- * @method Article             setQuestion()        Sets the current record's "question" value
- * @method Article             setTotalComments()   Sets the current record's "total_comments" value
- * @method Article             setHasThumbnails()   Sets the current record's "has_thumbnails" value
- * @method Article             setFlavour()         Sets the current record's "flavour" value
- * @method Article             setPublished()       Sets the current record's "published" value
- * @method Article             setUser()            Sets the current record's "User" value
- * @method Article             setThing()           Sets the current record's "Thing" value
- * @method Article             setComments()        Sets the current record's "Comments" collection
- * @method Article             setFileToArticle()   Sets the current record's "FileToArticle" collection
+ * @method integer             getId()                   Returns the current record's "id" value
+ * @method integer             getUserId()               Returns the current record's "user_id" value
+ * @method integer             getThingId()              Returns the current record's "thing_id" value
+ * @method string              getUsername()             Returns the current record's "username" value
+ * @method string              getTitle()                Returns the current record's "title" value
+ * @method string              getUrl()                  Returns the current record's "url" value
+ * @method string              getSummary()              Returns the current record's "summary" value
+ * @method string              getFulldescription()      Returns the current record's "fulldescription" value
+ * @method string              getCode()                 Returns the current record's "code" value
+ * @method string              getCodeLanguage()         Returns the current record's "code_language" value
+ * @method string              getQuestion()             Returns the current record's "question" value
+ * @method integer             getTotalComments()        Returns the current record's "total_comments" value
+ * @method boolean             getHasThumbnails()        Returns the current record's "has_thumbnails" value
+ * @method enum                getFlavour()              Returns the current record's "flavour" value
+ * @method boolean             getPublished()            Returns the current record's "published" value
+ * @method string              getSummaryHtml()          Returns the current record's "summary_html" value
+ * @method string              getFulldescriptionHtml()  Returns the current record's "fulldescription_html" value
+ * @method string              getQuestionHtml()         Returns the current record's "question_html" value
+ * @method User                getUser()                 Returns the current record's "User" value
+ * @method Thing               getThing()                Returns the current record's "Thing" value
+ * @method Doctrine_Collection getComments()             Returns the current record's "Comments" collection
+ * @method Doctrine_Collection getFileToArticle()        Returns the current record's "FileToArticle" collection
+ * @method Article             setId()                   Sets the current record's "id" value
+ * @method Article             setUserId()               Sets the current record's "user_id" value
+ * @method Article             setThingId()              Sets the current record's "thing_id" value
+ * @method Article             setUsername()             Sets the current record's "username" value
+ * @method Article             setTitle()                Sets the current record's "title" value
+ * @method Article             setUrl()                  Sets the current record's "url" value
+ * @method Article             setSummary()              Sets the current record's "summary" value
+ * @method Article             setFulldescription()      Sets the current record's "fulldescription" value
+ * @method Article             setCode()                 Sets the current record's "code" value
+ * @method Article             setCodeLanguage()         Sets the current record's "code_language" value
+ * @method Article             setQuestion()             Sets the current record's "question" value
+ * @method Article             setTotalComments()        Sets the current record's "total_comments" value
+ * @method Article             setHasThumbnails()        Sets the current record's "has_thumbnails" value
+ * @method Article             setFlavour()              Sets the current record's "flavour" value
+ * @method Article             setPublished()            Sets the current record's "published" value
+ * @method Article             setSummaryHtml()          Sets the current record's "summary_html" value
+ * @method Article             setFulldescriptionHtml()  Sets the current record's "fulldescription_html" value
+ * @method Article             setQuestionHtml()         Sets the current record's "question_html" value
+ * @method Article             setUser()                 Sets the current record's "User" value
+ * @method Article             setThing()                Sets the current record's "Thing" value
+ * @method Article             setComments()             Sets the current record's "Comments" collection
+ * @method Article             setFileToArticle()        Sets the current record's "FileToArticle" collection
  * 
  * @package    socialhub
  * @subpackage model
@@ -138,6 +147,15 @@ abstract class BaseArticle extends sfDoctrineRecord
         $this->hasColumn('published', 'boolean', null, array(
              'type' => 'boolean',
              'default' => 0,
+             ));
+        $this->hasColumn('summary_html', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('fulldescription_html', 'string', null, array(
+             'type' => 'string',
+             ));
+        $this->hasColumn('question_html', 'string', null, array(
+             'type' => 'string',
              ));
     }
 

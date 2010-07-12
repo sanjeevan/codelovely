@@ -154,7 +154,11 @@ class Article extends BaseArticle
       'Javscript'     => array('brush' => 'shBrushJScript.js', 'alias' => 'js'),
       'Perl'          => array('brush' => 'shBrushPerl.js', 'alias' => 'perl'),
       'Python'        => array('brush' => 'shBrushPython.js', 'alias' => 'python'),
+      'Text'          => array('brush' => 'shBrushPlain.js', 'alias' => 'plain'),
+      'XML'           => array('brush' => 'shBrushXml.js', 'alias' => 'xml')
     );
+    
+    asort($languages);
     
     return $languages;
   }

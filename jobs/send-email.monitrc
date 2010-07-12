@@ -1,3 +1,4 @@
 check process send_send1 with pidfile /var/www/codelovely/jobs/run/send-email-worker1.pid
   start = "/var/www/codelovely/jobs/send-email.php start worker1"
   stop = "/var/www/codelovely/jobs/send-email.php stop worker1"
+  if totalmemory > 150 MB then restart
