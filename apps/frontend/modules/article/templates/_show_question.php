@@ -20,4 +20,4 @@
   <div class="clear"></div>
 </div>
 
-<?php echo myUtil::markdown($article->getQuestion()); ?>
+<?php echo $article->getQuestionHtml(); ?>

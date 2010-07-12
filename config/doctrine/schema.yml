@@ -24,6 +24,9 @@ Article:
     has_thumbnails: { type: boolean, default: 0 }
     flavour: { type: enum, values: [link, code, question, snapshot], default: link}
     published: { type: boolean, default: 0 }
+    summary_html: string
+    fulldescription_html: string
+    question_html: string
   relations:
     User:
       local: user_id

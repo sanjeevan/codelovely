@@ -1,3 +1,4 @@
 check process cache_update1 with pidfile /var/www/codelovely/jobs/run/cache-update-worker1.pid
   start = "/var/www/codelovely/jobs/cache-update.php start worker1"
   stop = "/var/www/codelovely/jobs/cache-update.php stop worker1"
+  if totalmemory > 300 MB then restart

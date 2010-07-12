@@ -20,6 +20,12 @@
   <div class="clear"></div>
 </div>
 
+<div class="summary">
+  <?php if (strlen($article->getSummary()) > 0): ?>
+    <?php echo $article->getSummaryHtml(); ?>
+  <?php endif; ?>
+</div>
+
 <pre class="brush: <?php echo $article->getBrushAlias(); ?>">
 <?php echo htmlspecialchars($article->getCode()); ?>
 </pre>
