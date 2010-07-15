@@ -95,7 +95,7 @@ class ArticleSnapshotForm extends BaseForm
     
     $article->setUserId($user->getId());
     $article->setUsername($user->getUsername());
-    $article->setTitle($this->getValue('title'));
+    $article->setTitle($this->getValueEscaped('title'));
     $article->setFlavour('snapshot');
     $article->setHasThumbnails(false);
     

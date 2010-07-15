@@ -93,7 +93,7 @@
     <?php endif; ?>
     
     <?php if ($a->getFlavour() == 'code'): ?>
-<pre class="brush: <?php echo $a->getBrushAlias(); ?>"><?php echo htmlspecialchars($a->getCode()); ?></pre>
+<pre style="display: none;" class="brush: <?php echo $a->getBrushAlias(); ?>"><?php echo htmlspecialchars($a->getCode()); ?></pre>
     <?php endif; ?>
     
     <?php if ($a->getFlavour() == 'question'): ?>
