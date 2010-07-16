@@ -3,6 +3,20 @@
 class ArticleLinkForm extends BaseForm
 {
   private $job = null;
+  
+  /**
+   * True if we're editing an existing article
+   * 
+   * @var boolean
+   */
+  private $edit_mode = false;
+  
+  /**
+   * Article that this form is editing
+   * 
+   * @var Article
+   */
+  private $object = null;
 
   public function setup()
   {
@@ -11,15 +25,18 @@ class ArticleLinkForm extends BaseForm
       'url'       => new sfWidgetFormInputText(),
       'summary'   => new sfWidgetFormTextarea(),
       'images'    => new sfWidgetFormInputCheckbox(array('value_attribute_value' => 1)),
-      //'captcha'   => new sfWidgetFormReCaptcha(array('public_key' => sfConfig::get('app_recaptcha_public'))),
       'type'      => new sfWidgetFormInputHidden()
     ));
+    
+    $url_validator = new sfValidatorAnd(array(
+      new sfValidatorUrl(),
+      new sfValidatorCallback(array('callback' => array($this, 'uniqueUrl')))
+    ), array('required' => true));
         
     $this->setValidators(array(
       'title'     => new sfValidatorString(array('required' => true, 'max_length' => 255, 'min_length' => 5)),
-      'url'       => new sfValidatorUrl(array('required' => true)),
+      'url'       => $url_validator,
       'summary'   => new sfValidatorString(array('required' => false)),
-      //'captcha'   => new sfValidatorReCaptcha(array('private_key' => sfConfig::get('app_recaptcha_private'))),
       'type'      => new sfValidatorString(array('required' => true)),
       'images'    => new sfValidatorInteger(array('required' => false))
     ));
@@ -35,20 +52,65 @@ class ArticleLinkForm extends BaseForm
 
     $this->widgetSchema->setFormFormatterName('list');
     $this->widgetSchema->setNameFormat('article[%s]');
-    /*
-    if (sfContext::getInstance()->getUser()->isAdmin()){
-      unset($this['captcha']);
-    }
-    */
+    
     parent::setup();
   }
   
+  /**
+   * If set to true, we remvoe fetching of thumbnails
+   * 
+   */
   public function setEditMode()
   {
     unset($this['images']);
+    $this->edit_mode = true;
   }
   
+  /**
+   * Set the object we're editing
+   * 
+   * @param Article $article
+   */
+  public function setObject(Article $article)
+  {
+    $this->object = $article;
+  }
   
+  /**
+   * Checks if the passed value which is a URL is unique
+   * 
+   * @param sfValidator $validator
+   * @param mixed $value
+   */
+  public function uniqueUrl($validator, $value)
+  {
+    $q = Doctrine_Query::create()
+      ->select('a.*')
+      ->from('Article a')
+      ->where('a.url = ?', $value)
+      ->limit(1);
+      
+    if ($this->object instanceof Article){
+      $q->andWhere('a.id != ?', $this->object->getId());
+    }
+
+    $article = $q->fetchOne();  
+    
+    if ($article){
+      $title = htmlspecialchars($article->getTitle());
+      $link = "<a target='_blank' href='/{$article->getFlavour()}/{$article->getSlug()}'>{$title}<a/>";
+      throw new sfValidatorError($validator, "That url has already been submitted, see: $link");
+    }
+    
+    return $value;
+  }
+  
+  /**
+   * Create form, and populate values from specified models
+   * 
+   * @param Article $article
+   * @return ArticleLinkForm
+   */
   public static function fromModel(Article $article)
   {
     $defaults = array(
@@ -58,7 +120,10 @@ class ArticleLinkForm extends BaseForm
       'type' => 'link'
     );
     
-    return new ArticleLinkForm($defaults);
+    $form = new ArticleLinkForm($defaults);
+    $form->setObject($article);    
+    
+    return $form;
   }
 
   public function save(User $user = null, $article = null)
@@ -69,7 +134,7 @@ class ArticleLinkForm extends BaseForm
     
     $article->setUserId($user->getId());
     $article->setUsername($user->getUsername());
-    $article->setTitle($this->getValue('title'));
+    $article->setTitle($this->getValueEscaped('title'));
     $article->setUrl($this->getValue('url'));
 
     if (strlen($this->getValue('summary')) > 0){
@@ -93,6 +158,11 @@ class ArticleLinkForm extends BaseForm
     return $article;
   }
 
+  /**
+   * Get job information for fetching thumbnails
+   * 
+   * @return array
+   */
   public function getJob()
   {
     return $this->job;

@@ -16,4 +16,9 @@ class BaseForm extends sfFormSymfony
 
     parent::setup();
   }
+  
+  public function getValueEscaped($field)
+  {
+    return strip_tags($this->getValue($field));
+  }
 }

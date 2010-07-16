@@ -30,6 +30,8 @@
 <?php echo htmlspecialchars($article->getCode()); ?>
 </pre>
 
+<p id="code-formatting">Code formatting: <?php echo $article->getCodeLanguage(); ?></p>
+
 <script type="text/javascript">
  $(document).ready(function(){
    SyntaxHighlighter.all();

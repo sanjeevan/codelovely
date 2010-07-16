@@ -84,7 +84,7 @@ class ArticleCodeForm extends BaseForm
       $article->setSummaryHtml(myUtil::markdown($this->getValue('summary')));
     }
 
-    $article->setTitle($this->getValue('title'));
+    $article->setTitle($this->getValueEscaped('title'));
     $article->setCode($this->getValue('code'));
     $article->setCodeLanguage($this->getValue('language'));
     $article->save();
