@@ -108,14 +108,8 @@ class userActions extends ApplicationActions
   {
     $user = $this->getUser()->getModel();
     
-    $this->security_form = new SettingsForm(array(
-      'email' => $user->getEmail()
-    ));
-    
-    $this->personal_form = new PersonalSettingsForm(array(
-      'firstname' => $user->getFirstname(),
-      'lastname' => $user->getLastname()
-    ));
+    $this->security_form = new SettingsForm($user->toArray());
+    $this->personal_form = new PersonalSettingsForm($user->toArray());
 
     if ($user->getUserToAvatars()->count() > 0){
       $this->avatar = $user->getUserToAvatars()->getFirst();
@@ -146,6 +140,9 @@ class userActions extends ApplicationActions
         if ($this->personal_form->isValid()){
           $user->setFirstname($this->personal_form->getValue('firstname'));
           $user->setLastname($this->personal_form->getValue('lastname'));
+          $user->setSkills($this->personal_form->getValue('skills'));
+          $user->setTwitter($this->personal_form->getValue('twitter'));
+          $user->setWebsiteUrl($this->personal_form->getValue('website_url'));
           $user->save();
         } 
       }
@@ -207,7 +204,8 @@ class userActions extends ApplicationActions
   public function executeSignUp(sfWebRequest $request)
   {
     $this->form = new NewUserForm();
-    $this->form->enableInvites();
+    $this->form->enableCaptcha();
+    //$this->form->enableInvites();
     
     if ($request->hasParameter('invite')){
       $this->form->setDefault('invite', $request->getParameter('invite'));

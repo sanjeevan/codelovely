@@ -13,29 +13,35 @@ abstract class BaseUserFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'username'   => new sfWidgetFormFilterInput(),
-      'email'      => new sfWidgetFormFilterInput(),
-      'firstname'  => new sfWidgetFormFilterInput(),
-      'lastname'   => new sfWidgetFormFilterInput(),
-      'password'   => new sfWidgetFormFilterInput(),
-      'salt'       => new sfWidgetFormFilterInput(),
-      'is_admin'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
-      'last_login' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
-      'created_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
-      'updated_at' => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'username'    => new sfWidgetFormFilterInput(),
+      'email'       => new sfWidgetFormFilterInput(),
+      'firstname'   => new sfWidgetFormFilterInput(),
+      'lastname'    => new sfWidgetFormFilterInput(),
+      'password'    => new sfWidgetFormFilterInput(),
+      'salt'        => new sfWidgetFormFilterInput(),
+      'is_admin'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'last_login'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'twitter'     => new sfWidgetFormFilterInput(),
+      'website_url' => new sfWidgetFormFilterInput(),
+      'skills'      => new sfWidgetFormChoice(array('choices' => array('' => '', 'none' => 'none', 'developer' => 'developer', 'designer' => 'designer', 'designer_developer' => 'designer_developer'))),
+      'created_at'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'updated_at'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
-      'username'   => new sfValidatorPass(array('required' => false)),
-      'email'      => new sfValidatorPass(array('required' => false)),
-      'firstname'  => new sfValidatorPass(array('required' => false)),
-      'lastname'   => new sfValidatorPass(array('required' => false)),
-      'password'   => new sfValidatorPass(array('required' => false)),
-      'salt'       => new sfValidatorPass(array('required' => false)),
-      'is_admin'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
-      'last_login' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'created_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
-      'updated_at' => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'username'    => new sfValidatorPass(array('required' => false)),
+      'email'       => new sfValidatorPass(array('required' => false)),
+      'firstname'   => new sfValidatorPass(array('required' => false)),
+      'lastname'    => new sfValidatorPass(array('required' => false)),
+      'password'    => new sfValidatorPass(array('required' => false)),
+      'salt'        => new sfValidatorPass(array('required' => false)),
+      'is_admin'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'last_login'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'twitter'     => new sfValidatorPass(array('required' => false)),
+      'website_url' => new sfValidatorPass(array('required' => false)),
+      'skills'      => new sfValidatorChoice(array('required' => false, 'choices' => array('none' => 'none', 'developer' => 'developer', 'designer' => 'designer', 'designer_developer' => 'designer_developer'))),
+      'created_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
+      'updated_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 00:00:00')), 'to_date' => new sfValidatorDateTime(array('required' => false, 'datetime_output' => 'Y-m-d 23:59:59')))),
     ));
 
     $this->widgetSchema->setNameFormat('user_filters[%s]');
@@ -55,17 +61,20 @@ abstract class BaseUserFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'         => 'Number',
-      'username'   => 'Text',
-      'email'      => 'Text',
-      'firstname'  => 'Text',
-      'lastname'   => 'Text',
-      'password'   => 'Text',
-      'salt'       => 'Text',
-      'is_admin'   => 'Boolean',
-      'last_login' => 'Date',
-      'created_at' => 'Date',
-      'updated_at' => 'Date',
+      'id'          => 'Number',
+      'username'    => 'Text',
+      'email'       => 'Text',
+      'firstname'   => 'Text',
+      'lastname'    => 'Text',
+      'password'    => 'Text',
+      'salt'        => 'Text',
+      'is_admin'    => 'Boolean',
+      'last_login'  => 'Date',
+      'twitter'     => 'Text',
+      'website_url' => 'Text',
+      'skills'      => 'Enum',
+      'created_at'  => 'Date',
+      'updated_at'  => 'Date',
     );
   }
 }
