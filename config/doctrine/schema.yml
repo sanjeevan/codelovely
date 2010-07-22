@@ -53,6 +53,9 @@ User:
     salt: string(255)
     is_admin: boolean
     last_login: timestamp
+    twitter: string(100)
+    website_url: string(255)
+    skills: { type: enum, values: [none, developer, designer, designer_developer], default: none }
      
 Vote:
   actAs: [Timestampable]
@@ -241,4 +244,39 @@ InviteRequest:
     url: string(100)
     firstname: string(50)
     lastname: string(50)    
+    
+Tag:
+  actAs: 
+    Timestampable: ~
+    Sluggable: 
+      unique: true
+      fields: [name]
+      canUpdate: true
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    name: string(100)
+      
+TagToArticle:
+  actAs: [Timestampable]
+  columns:
+    id:
+      primary: true
+      autoincrement: true
+      type: integer(4)
+    tag_id: integer(4)
+    article_id: integer(4)
+  relations:
+    Tag:
+      local: tag_id
+    Article:
+      local: article_id
+  indexes:
+    article_to_tag_index:
+      fields: [tag_id, article_id]
+      type: unique
+    
+    
     

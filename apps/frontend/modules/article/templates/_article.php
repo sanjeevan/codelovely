@@ -41,7 +41,7 @@
 
   <div class="item">
     <?php if ($a->getFlavour() == 'link'): ?>
-      <p><?php echo link_to($a->getTitle(), $a->getUrl(), array('class' => 'name', 'target' => '_blank')); ?></p>
+      <p><?php echo link_to($a->getTitle(), $a->getUrl(), array('class' => 'name', 'target' => '_blank', 'rel' => 'nofollow')); ?></p>
       <p class="url"><?php echo $a->getUrl(); ?></p>
     <?php else: ?>
       <p><?php echo link_to($a->getTitle(), $a->getViewUrl(), array('class' => 'name')); ?></p>

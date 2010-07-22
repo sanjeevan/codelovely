@@ -27,6 +27,7 @@
  * @property Thing $Thing
  * @property Doctrine_Collection $Comments
  * @property Doctrine_Collection $FileToArticle
+ * @property Doctrine_Collection $TagToArticle
  * 
  * @method integer             getId()                   Returns the current record's "id" value
  * @method integer             getUserId()               Returns the current record's "user_id" value
@@ -50,6 +51,7 @@
  * @method Thing               getThing()                Returns the current record's "Thing" value
  * @method Doctrine_Collection getComments()             Returns the current record's "Comments" collection
  * @method Doctrine_Collection getFileToArticle()        Returns the current record's "FileToArticle" collection
+ * @method Doctrine_Collection getTagToArticle()         Returns the current record's "TagToArticle" collection
  * @method Article             setId()                   Sets the current record's "id" value
  * @method Article             setUserId()               Sets the current record's "user_id" value
  * @method Article             setThingId()              Sets the current record's "thing_id" value
@@ -72,6 +74,7 @@
  * @method Article             setThing()                Sets the current record's "Thing" value
  * @method Article             setComments()             Sets the current record's "Comments" collection
  * @method Article             setFileToArticle()        Sets the current record's "FileToArticle" collection
+ * @method Article             setTagToArticle()         Sets the current record's "TagToArticle" collection
  * 
  * @package    socialhub
  * @subpackage model
@@ -175,6 +178,10 @@ abstract class BaseArticle extends sfDoctrineRecord
              'foreign' => 'article_id'));
 
         $this->hasMany('FileToArticle', array(
+             'local' => 'id',
+             'foreign' => 'article_id'));
+
+        $this->hasMany('TagToArticle', array(
              'local' => 'id',
              'foreign' => 'article_id'));
 

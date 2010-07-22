@@ -15,6 +15,9 @@ class NewUserForm extends BaseUserForm
     unset($this['last_login']);
     unset($this['salt']);
     unset($this['is_admin']);
+    unset($this['twitter']);
+    unset($this['website_url']);
+    unset($this['skills']);
             
     $this->widgetSchema['password']   = new sfWidgetFormInputPassword();
     $this->widgetSchema['password2']  = new sfWidgetFormInputPassword();

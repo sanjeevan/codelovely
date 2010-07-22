@@ -14,6 +14,9 @@
  * @property string $salt
  * @property boolean $is_admin
  * @property timestamp $last_login
+ * @property string $twitter
+ * @property string $website_url
+ * @property enum $skills
  * @property Doctrine_Collection $sfMessageInbox
  * @property Doctrine_Collection $sfMessageOutbox
  * @property Doctrine_Collection $Article
@@ -32,6 +35,9 @@
  * @method string              getSalt()            Returns the current record's "salt" value
  * @method boolean             getIsAdmin()         Returns the current record's "is_admin" value
  * @method timestamp           getLastLogin()       Returns the current record's "last_login" value
+ * @method string              getTwitter()         Returns the current record's "twitter" value
+ * @method string              getWebsiteUrl()      Returns the current record's "website_url" value
+ * @method enum                getSkills()          Returns the current record's "skills" value
  * @method Doctrine_Collection getSfMessageInbox()  Returns the current record's "sfMessageInbox" collection
  * @method Doctrine_Collection getSfMessageOutbox() Returns the current record's "sfMessageOutbox" collection
  * @method Doctrine_Collection getArticle()         Returns the current record's "Article" collection
@@ -49,6 +55,9 @@
  * @method User                setSalt()            Sets the current record's "salt" value
  * @method User                setIsAdmin()         Sets the current record's "is_admin" value
  * @method User                setLastLogin()       Sets the current record's "last_login" value
+ * @method User                setTwitter()         Sets the current record's "twitter" value
+ * @method User                setWebsiteUrl()      Sets the current record's "website_url" value
+ * @method User                setSkills()          Sets the current record's "skills" value
  * @method User                setSfMessageInbox()  Sets the current record's "sfMessageInbox" collection
  * @method User                setSfMessageOutbox() Sets the current record's "sfMessageOutbox" collection
  * @method User                setArticle()         Sets the current record's "Article" collection
@@ -103,6 +112,25 @@ abstract class BaseUser extends sfDoctrineRecord
              ));
         $this->hasColumn('last_login', 'timestamp', null, array(
              'type' => 'timestamp',
+             ));
+        $this->hasColumn('twitter', 'string', 100, array(
+             'type' => 'string',
+             'length' => '100',
+             ));
+        $this->hasColumn('website_url', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
+        $this->hasColumn('skills', 'enum', null, array(
+             'type' => 'enum',
+             'values' => 
+             array(
+              0 => 'none',
+              1 => 'developer',
+              2 => 'designer',
+              3 => 'designer_developer',
+             ),
+             'default' => 'none',
              ));
     }
 

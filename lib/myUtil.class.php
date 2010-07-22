@@ -20,9 +20,10 @@ class myUtil
   {
     static $parser = null;
     
-    if (!isset($parser)) 
-    {
+    if (!isset($parser)) {
       $parser = new Markdown_Parser();
+      $parser->no_entities = true;
+      $parser->no_markup = true;
     }
 
     return $parser->transform($text);
