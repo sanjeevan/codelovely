@@ -204,8 +204,14 @@ class userActions extends ApplicationActions
   public function executeSignUp(sfWebRequest $request)
   {
     $this->form = new NewUserForm();
-    $this->form->enableCaptcha();
-    //$this->form->enableInvites();
+    
+    if (sfConfig::get('app_signup_captcha')){
+      $this->form->enableCaptcha();  
+    }
+    
+    if (sfConfig::get('app_signup_invite')){
+      $this->form->enableInvites();
+    }
     
     if ($request->hasParameter('invite')){
       $this->form->setDefault('invite', $request->getParameter('invite'));
