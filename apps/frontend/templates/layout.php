@@ -21,7 +21,7 @@
     
     <div class="container">
 
-      <?php if (!$sf_user->isAuthenticated() && $sf_user->getAttribute('showpromo', true, 'promo')): ?>
+      <?php if (!$sf_user->isAuthenticated() && $sf_user->getAttribute('showpromo', true, 'promo') && sfConfig::get('app_signup_invite')): ?>
         <?php include_partial('invite/promo'); ?>
       <?php endif; ?>
 
