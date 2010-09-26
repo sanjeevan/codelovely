@@ -149,7 +149,7 @@ class articleActions extends ApplicationActions
       $this->redirect($request->getReferer());
     }
         
-    if ($article->getUserId() != $this->getUser()->getId() || !$this->getUser()->isAdmin()){
+    if ($article->getUserId() != $this->getUser()->getId() && !$this->getUser()->isAdmin()){
       $this->getUser()->setFlash('error', 'You cannot delete this article!');
       $this->redirect($request->getReferer());
     }
