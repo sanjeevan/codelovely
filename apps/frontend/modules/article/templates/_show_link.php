@@ -1,6 +1,7 @@
 <div class="profile">
   <img class="photo" src="<?php echo url_for('profile/avatar?userid=' . $user->getId()); ?>" />
   <h1><?php echo link_to($article->getTitle(), $article->getUrl(), array('target' => '_blank')); ?></h1>
+  <p class="url"><?php echo $article->getUrl(); ?></p>
   <ul>
     <li>
       <?php if ($sf_user->getId() == $article->getUserId()): ?>

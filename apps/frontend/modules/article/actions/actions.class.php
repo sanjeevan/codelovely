@@ -148,12 +148,8 @@ class articleActions extends ApplicationActions
       $this->getUser()->setFlash('error', 'Article not found');
       $this->redirect($request->getReferer());
     }
-
-    if (!$this->getUser()->isAdmin()){
-      throw new sfSecurityException("You cannot delete this article");
-    }
-    
-    if ($article->getUserId() != $this->getUser()->getId()){
+        
+    if ($article->getUserId() != $this->getUser()->getId() || !$this->getUser()->isAdmin()){
       $this->getUser()->setFlash('error', 'You cannot delete this article!');
       $this->redirect($request->getReferer());
     }
