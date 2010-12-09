@@ -141,6 +141,7 @@ File:
     meta_width: integer(4)
     meta_height: integer(4)
     hash: string(32)
+    source: string(25)
 
 FileToArticle:
   actAs: [Timestampable]
