@@ -24,6 +24,7 @@ abstract class BaseFileForm extends BaseFormDoctrine
       'meta_width'  => new sfWidgetFormInputText(),
       'meta_height' => new sfWidgetFormInputText(),
       'hash'        => new sfWidgetFormInputText(),
+      'source'      => new sfWidgetFormInputText(),
       'created_at'  => new sfWidgetFormDateTime(),
       'updated_at'  => new sfWidgetFormDateTime(),
     ));
@@ -38,6 +39,7 @@ abstract class BaseFileForm extends BaseFormDoctrine
       'meta_width'  => new sfValidatorInteger(array('required' => false)),
       'meta_height' => new sfValidatorInteger(array('required' => false)),
       'hash'        => new sfValidatorString(array('max_length' => 32, 'required' => false)),
+      'source'      => new sfValidatorString(array('max_length' => 25, 'required' => false)),
       'created_at'  => new sfValidatorDateTime(),
       'updated_at'  => new sfValidatorDateTime(),
     ));
