@@ -14,6 +14,7 @@
  * @property integer $meta_width
  * @property integer $meta_height
  * @property string $hash
+ * @property string $source
  * @property Doctrine_Collection $FileToArticle
  * @property Doctrine_Collection $UserToAvatars
  * 
@@ -26,6 +27,7 @@
  * @method integer             getMetaWidth()     Returns the current record's "meta_width" value
  * @method integer             getMetaHeight()    Returns the current record's "meta_height" value
  * @method string              getHash()          Returns the current record's "hash" value
+ * @method string              getSource()        Returns the current record's "source" value
  * @method Doctrine_Collection getFileToArticle() Returns the current record's "FileToArticle" collection
  * @method Doctrine_Collection getUserToAvatars() Returns the current record's "UserToAvatars" collection
  * @method File                setId()            Sets the current record's "id" value
@@ -37,6 +39,7 @@
  * @method File                setMetaWidth()     Sets the current record's "meta_width" value
  * @method File                setMetaHeight()    Sets the current record's "meta_height" value
  * @method File                setHash()          Sets the current record's "hash" value
+ * @method File                setSource()        Sets the current record's "source" value
  * @method File                setFileToArticle() Sets the current record's "FileToArticle" collection
  * @method File                setUserToAvatars() Sets the current record's "UserToAvatars" collection
  * 
@@ -87,6 +90,10 @@ abstract class BaseFile extends sfDoctrineRecord
         $this->hasColumn('hash', 'string', 32, array(
              'type' => 'string',
              'length' => '32',
+             ));
+        $this->hasColumn('source', 'string', 25, array(
+             'type' => 'string',
+             'length' => '25',
              ));
     }
 
