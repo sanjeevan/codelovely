@@ -4,14 +4,13 @@
  */
 class Version5 extends Doctrine_Migration_Base
 {
-    public function up()
-    {
-        $this->addColumn('file', 'source', 'string', '25', array(
-             ));
-    }
+  public function up()
+  {
+    $this->addColumn('file', 'source', 'string', '25', array());
+  }
 
-    public function down()
-    {
-        $this->removeColumn('file', 'source');
-    }
+  public function down()
+  {
+    $this->removeColumn('file', 'source');
+  }
 }

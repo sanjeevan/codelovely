@@ -1,0 +1,33 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  name: CodeLovely
+  tagline: Share links, code, snapshots and ask questions
+
+  # default thumbnail size
+  thumbnail:
+    size: 80
+
+  # default comment text
+  comment:
+    default: Enter your comment here...
+
+  # recaptcha public/private keys
+  recaptcha:
+    public: yourpublickeyhere
+    private: yourprivatekeyhere
+
+  # number of articles per page
+  things:
+    perpage: 10
+    
+  # default snapshot sizing
+  image:
+    snapshotw: 400
+    snapshoth: 300
+
+  signup:
+    captcha: true
+    invite: false
