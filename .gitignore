@@ -1,3 +1,9 @@
+
+# sensitive stuff
+build/*
+apps/frontend/config/app.yml
+config/databases.yml
+
 *~
 *.swp
 *.log
